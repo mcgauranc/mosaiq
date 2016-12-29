@@ -3,3 +3,4 @@ django==1.9.6
 django-adaptors
 django-report-builder
 dj-database-url
+psycopg2
