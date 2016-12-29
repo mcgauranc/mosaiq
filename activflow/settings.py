@@ -123,6 +123,6 @@ STATICFILES_FINDERS = (
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login/'
 
-REPORT_BUILDER_INCLUDE = ['activflow.tests.models.Sample']
+# REPORT_BUILDER_INCLUDE = ['activflow.tests.models.Sample']
 REPORT_BUILDER_GLOBAL_EXPORT = True
 SITE_ID=1
