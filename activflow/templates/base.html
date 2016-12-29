@@ -46,7 +46,7 @@
             <li class="active"><a href="{% url 'workflows' %}">Home</a></li>
             <li class="dropdown">
         </li>
-            <li><a href="/report_builder">Reports</a></li>
+            <li><a href="/report_builder/">Reports</a></li>
           </ul>
           {% if user.is_authenticated %}
           <p class="navbar-text pull-right">Logged in as <a href="/auth/logout/?next=/auth/login/">{{ user.username }}</a></p>
