@@ -1,27 +1,51 @@
 """ Test Flow Definition"""
 
-from activflow.tests.models import Foo, Corge
-from activflow.tests.rules import foo_to_corge
-
+from activflow.tests.models import Sample, ImageAnalysisDiagnostic
+from activflow.tests.rules import progress, is_conformant, is_non_conformant
 
 FLOW = {
-    'foo_activity': {
-        'name': 'Foo Activity',
-        'model': Foo,
+    'receive_sample': {
+        'name': 'Receive Sample',
+        'model': Sample,
         'role': 'Submitter',
         'transitions': {
-            'corge_activity': foo_to_corge,
+            'record_pretyping': progress,
         }
     },
-    'corge_activity': {
-        'name': 'Corge Activity',
-        'model': Corge,
+    'record_pretyping': {
+        'name': 'Record Sample Pre-typing',
+        'model': ImageAnalysisDiagnostic,
         'role': 'Reviewer',
+        'transitions': {
+            'import_results': progress,
+        }
+    },
+    'import_results': {
+        'name': 'Import Results',
+        'model': ImageAnalysisDiagnostic,
+        'role': 'Submitter',
+        'transitions': {
+            'final_report': is_conformant,
+            'rerun': is_non_conformant,
+        }
+    },
+    'final_report': {
+        'name': 'Run Final Report',
+        'model': ImageAnalysisDiagnostic,
+        'role': 'Submitter',
         'transitions': None
-    }
+    },
+    'rerun': {
+        'name': 'Import Results (2nd Run)',
+        'model': ImageAnalysisDiagnostic,
+        'role': 'Submitter',
+        'transitions': {
+            'import_results': progress,
+        }
+    },
 }
 
-INITIAL = 'foo_activity'
+INITIAL = 'receive_sample'
 
-TITLE = 'Test Workflow'
-DESCRIPTION = 'Description of workflow goes here'
+TITLE = 'mosaiQ Vaidation'
+DESCRIPTION = 'Validation process for mosaiQ'

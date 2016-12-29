@@ -2,22 +2,15 @@
 
 from collections import OrderedDict as odict
 
-
 ACTIVITY_CONFIG = odict([
-    ('Foo', odict([
-        ('subject', ['create', 'update', 'display']),
-        ('bar', ['create', 'update', 'display']),
-        ('baz', ['create', 'update', 'display']),
-        ('qux', ['create', 'update', 'display']),
+    ('Sample', odict([
+        ('sample_id', ['create', 'update', 'display']),
+        ('internal_sample_id', ['create', 'display']),
+        ('created_by', ['create', 'update', 'display']),
+        ('notes', ['create', 'display']),
         ('creation_date', ['display']),
         ('last_updated', ['display'])
-    ])),
-    # ('Corge', odict([
-    #     ('grault', ['create', 'update', 'display']),
-    #     ('thud', ['create', 'update', 'display']),
-    #     ('creation_date', ['display']),
-    #     ('last_updated', ['display'])
-    # ])),
+    ]))
 ])
 
 #  config for Corge commented out to demonstrate that config is optional
@@ -25,11 +18,11 @@ ACTIVITY_CONFIG = odict([
 # field configuration for WYSIWYG editor
 
 WYSIWYG_CONFIG = {
-    'Foo': ['qux']
+    'Sample': ['notes']
 }
 
 # custom form registration
 
 FORM_CONFIG = {
-    'Foo': 'CustomForm'
+    'Sample': 'CustomForm'
 }

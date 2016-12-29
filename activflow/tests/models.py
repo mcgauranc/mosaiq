@@ -1,31 +1,66 @@
 """Model definition for test workflow"""
 
+import uuid
+
+from django.contrib.auth.models import User
+from django.contrib import admin
 from django.db.models import (
     CharField,
     IntegerField,
     TextField)
 
+from django.db import models
+
 from activflow.core.models import AbstractActivity, AbstractInitialActivity
 from activflow.tests.validators import validate_initial_cap
 
 
-class Foo(AbstractInitialActivity):
+class Sample(AbstractInitialActivity):
     """Sample representation of Foo activity"""
-    bar = CharField("Bar", max_length=200, validators=[validate_initial_cap])
-    baz = CharField(verbose_name="Baz", max_length=30, choices=(
-        ('CR', 'Corge'), ('WL', 'Waldo')))
-    qux = TextField("Qux", blank=True)
+    sample_id = CharField("Sample Id:", max_length=200, validators=[validate_initial_cap])
+    internal_sample_id = models.UUIDField(primary_key=False, default=uuid.uuid4)
+    created_by = models.OneToOneField(User)
+    notes = TextField("Notes", blank=True)
 
     def clean(self):
         """Custom validation logic should go here"""
         pass
 
 
-class Corge(AbstractActivity):
+class DataValue(models.Model):
+    """
+
+    """
+    name = CharField("Name", max_length=50)
+    value = CharField("Value", max_length=50)
+
+
+class StepDiagInformation(models.Model):
+    qualified_step_name = CharField("QualifiedStepName", max_length=50)
+    input_values = models.ForeignKey(DataValue, on_delete=models.CASCADE)
+    intermediate_values = CharField("IntermediateValues", max_length=50)
+    output_values = CharField("OutputValues", max_length=50)
+
+
+class DiagnosticData(models.Model):
+    results = models.ForeignKey(StepDiagInformation, on_delete=models.CASCADE)
+
+
+class ImageAnalysisDiagnostic(AbstractActivity):
     """Sample representation of Corge activity"""
-    grault = CharField("Grault", max_length=50)
-    thud = IntegerField("Thud")
+    execution_time = IntegerField("ExecutionTime")
+    assay_type = CharField("Assay Type", max_length=50)
+    conformant = CharField(verbose_name="Conformant", max_length=30, choices=(
+        ('Y', 'Yes'), ('N', 'No')))
+
+    # diagnostic_data = models.ForeignKey(DiagnosticData, on_delete=models.CASCADE)
 
     def clean(self):
         """Custom validation logic should go here"""
         pass
+
+
+admin.site.register(Sample)
+admin.site.register(StepDiagInformation)
+admin.site.register(DataValue)
+admin.site.register(ImageAnalysisDiagnostic)

@@ -5,11 +5,12 @@ from django.test import TestCase
 from django.test import Client
 
 from activflow.core.models import Request
-from activflow.tests.models import Foo, Corge
+from activflow.tests.models import Sample, PreTypingResults
 
 
 class CoreTests(TestCase):
     """Core workflow engine tests"""
+
     def setUp(self):
         """Test Setup"""
         self.client = Client()
@@ -72,7 +73,7 @@ class CoreTests(TestCase):
                 'create',
                 kwargs=request_args))
 
-            self.assertEqual(response.context['form']._meta.model, Foo,
+            self.assertEqual(response.context['form']._meta.model, Sample,
                              'User has access to initiate workflow, '
                              'still the context does not contain the '
                              'required form instance')
@@ -84,16 +85,16 @@ class CoreTests(TestCase):
                 kwargs=request_args
             ),
             {
-                'subject': 'test',
+                'notes': 'test',
                 'bar': 'example - small e',
-                'baz': 'WL',
-                'qux': 'Nothing'
+                # 'dropdown': 'WL',
+                'notes': 'Nothing'
             })
 
         self.assertEqual(response.status_code, 200,
                          'Form post did not result in success')
         # No instance gets created because form is invalid
-        self.assertEqual(Foo.objects.count(), 0,
+        self.assertEqual(Sample.objects.count(), 0,
                          'Validation errors still result in creation '
                          'of initial activity instance')
 
@@ -104,13 +105,13 @@ class CoreTests(TestCase):
                 kwargs=request_args
             ),
             {
-                'subject': 'test',
+                'notes': 'test',
                 'bar': 'Example - small e',
-                'baz': 'WL',
-                'qux': 'Nothing'
+                # 'dropdown': 'WL',
+                'notes': 'Nothing'
             })
 
-        instances = Foo.objects.all()
+        instances = Sample.objects.all()
         instance = instances.first()
 
         # Instance gets saved successfully against form submit
@@ -144,10 +145,10 @@ class CoreTests(TestCase):
                 kwargs=request_args
             ),
             {
-                'subject': 'test',
+                'notes': 'test',
                 'bar': 'Example - small e',
-                'baz': 'WL',
-                'qux': 'Nothing',
+                # 'dropdown': 'WL',
+                'notes': 'Nothing',
                 'save': 'Save'
             })
 
@@ -165,10 +166,10 @@ class CoreTests(TestCase):
                 kwargs=request_args
             ),
             {
-                'subject': 'test',
+                'notes': 'test',
                 'bar': 'Example',
-                'baz': 'WL',
-                'qux': 'Nothing',
+                # 'dropdown': 'WL',
+                'notes': 'Nothing',
                 'submit': 'corge_activity'
             })
 
@@ -193,9 +194,9 @@ class CoreTests(TestCase):
                     'pk': final_task.id
                 }
             ),
-            {'grault': 'Example - big E', 'thud': 23})
+            {'result1': 'Example - big E', 'result2': 23})
 
-        instances = Corge.objects.all()
+        instances = PreTypingResults.objects.all()
         instance = instances.first()
 
         # New instance for last activity gets created
@@ -222,7 +223,7 @@ class CoreTests(TestCase):
                 'update',
                 kwargs=request_args
             ),
-            {'grault': 'Example - big E', 'thud': 23, 'finish': 'Finish'})
+            {'result1': 'Example - big E', 'result2': 23, 'finish': 'Finish'})
 
         response = self.client.get(reverse(
             'view',
@@ -235,7 +236,7 @@ class CoreTests(TestCase):
             'delete',
             kwargs=request_args))
 
-        self.assertEqual(Corge.objects.all().count(), 0,
+        self.assertEqual(PreTypingResults.objects.all().count(), 0,
                          'Delete operation did not end up removing '
                          'the instance')
 
@@ -254,13 +255,13 @@ class CoreTests(TestCase):
                 kwargs=request_args
             ),
             {
-                'subject': 'test',
+                'notes': 'test',
                 'bar': 'Example',
-                'baz': 'WL',
-                'qux': 'Nothing',
+                # 'dropdown': 'WL',
+                'notes': 'Nothing',
             })
 
-        instances = Foo.objects.all()
+        instances = Sample.objects.all()
         instance = instances.first()
 
         # Redirects the control to update form
@@ -283,10 +284,10 @@ class CoreTests(TestCase):
                 kwargs=request_args
             ),
             {
-                'subject': 'test',
+                'notes': 'test',
                 'bar': 'Example',
-                'baz': 'WL',
-                'qux': 'Nothing',
+                # 'dropdown': 'WL',
+                'notes': 'Nothing',
                 'save': 'Save'
             })
 
@@ -304,10 +305,10 @@ class CoreTests(TestCase):
                 kwargs=request_args
             ),
             {
-                'subject': 'test',
+                'notes': 'test',
                 'bar': 'Example',
-                'baz': 'WL',
-                'qux': 'Nothing',
+                # 'dropdown': 'WL',
+                'notes': 'Nothing',
                 'submit': 'corge_activity'
             })
 
@@ -332,9 +333,9 @@ class CoreTests(TestCase):
                     'pk': final_task.id
                 }
             ),
-            {'grault': 'Example - big E', 'thud': 23})
+            {'result1': 'Example - big E', 'result2': 23})
 
-        instances = Corge.objects.all()
+        instances = PreTypingResults.objects.all()
         instance = instances.latest('id')
 
         request_args = {
@@ -361,6 +362,6 @@ class CoreTests(TestCase):
         final_task = request.tasks.latest('id')
 
         # Rollback result in task creation for previous activity
-        self.assertEqual(final_task.activity_ref, 'foo_activity',
+        self.assertEqual(final_task.activity_ref, 'receive_sample',
                          'Rollback did not create the required task '
                          'for previous activity')

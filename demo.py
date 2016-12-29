@@ -34,7 +34,7 @@ def main():
 
     submitter.user_set.add(john_doe)
     reviewer.user_set.add(jane_smith)
-
+    os.system('./manage.py runserver')
 
 if __name__ == '__main__':
     main()

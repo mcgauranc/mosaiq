@@ -216,7 +216,7 @@ class AbstractActivity(AbstractEntity):
 
 class AbstractInitialActivity(AbstractActivity):
     """Common attributes for initial activity"""
-    subject = CharField(verbose_name="Subject", max_length=70)
+    # notes = CharField(verbose_name="Notes", max_length=255)
 
     class Meta(object):
         abstract = True

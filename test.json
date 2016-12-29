@@ -1,0 +1,12 @@
+[
+    {
+    "model": "tests.sample",
+    "fields": {
+      "creation_date": "2016-12-28T21:56:13.079Z",
+      "last_updated": "2016-12-28T21:56:17.720Z",
+      "sample_id": "\u00c1",
+      "internal_sample_id": "c5042303-2b55-46dc-b4d6-1c7825fad8df",
+      "notes": ""
+    }
+  }
+]

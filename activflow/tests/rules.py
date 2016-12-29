@@ -1,6 +1,17 @@
 """Rules"""
 
 
-def foo_to_corge(self):
+def progress(self):
     """Check if foo can send to corge"""
-    return self.bar != 'Sample'
+    return True
+
+
+def is_conformant(self):
+    """Check if foo can send to corge"""
+    print("should progress: %s" % self.conformant)
+    return self.conformant is 'Y'
+
+def is_non_conformant(self):
+    """Check if foo can send to corge"""
+    print("should progress: %s" % self.conformant)
+    return self.conformant is not 'Y'

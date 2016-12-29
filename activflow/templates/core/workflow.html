@@ -16,7 +16,7 @@
 	</blockquote>
   </div>
   <div class="col-md-3 col-md-pull-9">
-    <a href="{% url 'create' app_title initial request_identifier %}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon glyphicon-edit"></span> Initiate Request</a>
+    <a href="{% url 'create' app_title initial request_identifier %}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon glyphicon-edit"></span> Receive Sample</a>
   </div>
 </div>
 {% if requests %}
@@ -26,7 +26,6 @@
 		<th>ID</th>
 		<th>Status</th>
 		<th>Requester</th>
-		<th>Subject</th>
 		<th>Created</th>
 		<th>Last Updated</th>
     </tr>
@@ -34,13 +33,12 @@
 	<tr class="active">
 		<td>
 			<button class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#{{request.code}}">
-				View Tasks <span class="badge">{{ request.tasks.count }}</span>
+				View Progress <span class="badge">{{ request.tasks.count }}</span>
 			</button>
 		</td>
 		<td>{{request.id}}</td>
 		<td>{{request.status}}</td>
 		<td>{{request.requester.username}}</td>
-		<td>{{request.tasks.all.0.activity.subject}}</td>
 		<td>{{request.creation_date}}</td>
 		<td>{{request.last_updated}}</td>
     </tr>
