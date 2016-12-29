@@ -19,7 +19,7 @@ class Sample(AbstractInitialActivity):
     """Sample representation of Foo activity"""
     sample_id = CharField("Sample Id:", max_length=200, validators=[validate_initial_cap])
     internal_sample_id = models.UUIDField(primary_key=False, default=uuid.uuid4)
-    # created_by = models.OneToOneField(User)
+    created_by = models.OneToOneField(User)
     notes = TextField("Notes", blank=True)
 
     def clean(self):
