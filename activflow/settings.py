@@ -43,7 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'activflow.core',
-    'activflow.tests'
+    'activflow.quotient'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -123,6 +124,6 @@ STATICFILES_FINDERS = (
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login/'
 
-# REPORT_BUILDER_INCLUDE = ['activflow.tests.models.Sample']
+# REPORT_BUILDER_INCLUDE = ['activflow.quotient.models.Sample']
 REPORT_BUILDER_GLOBAL_EXPORT = True
 SITE_ID=1

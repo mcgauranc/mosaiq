@@ -5,6 +5,7 @@ from importlib import import_module
 from collections import OrderedDict
 
 from django.apps import apps
+
 from django import template
 
 from activflow.core.constants import REQUEST_IDENTIFIER
@@ -12,7 +13,6 @@ from activflow.core.helpers import (
     activity_config,
     wysiwyg_config
 )
-
 from activflow.core.models import Task
 
 register = template.Library()
@@ -48,8 +48,8 @@ def activity_data(context, instance, option):
 
     return OrderedDict([(model().class_meta.get_field(
         field_name).verbose_name, getattr(
-            instance, field_name)) for field_name in itertools.islice(
-                compute(config), len(config))])
+        instance, field_name)) for field_name in itertools.islice(
+        compute(config), len(config))])
 
 
 @register.assignment_tag(takes_context=True)
@@ -86,3 +86,8 @@ def request_instance(task_identifier):
     return Task.objects.get(
         id=task_identifier
     ).request if task_identifier != REQUEST_IDENTIFIER else None
+
+
+@register.filter(name='addcss')
+def addcss(field, css):
+    return field.as_widget(attrs={"class": css})

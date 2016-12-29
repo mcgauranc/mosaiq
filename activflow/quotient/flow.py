@@ -1,7 +1,7 @@
 """ Test Flow Definition"""
 
-from activflow.tests.models import Sample, ImageAnalysisDiagnostic
-from activflow.tests.rules import progress, is_conformant, is_non_conformant
+from activflow.quotient.models import Sample, ImageAnalysisDiagnostic
+from activflow.quotient.rules import progress, is_conformant, is_non_conformant
 
 FLOW = {
     'receive_sample': {

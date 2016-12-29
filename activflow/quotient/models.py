@@ -12,7 +12,7 @@ from django.db.models import (
 from django.db import models
 
 from activflow.core.models import AbstractActivity, AbstractInitialActivity
-from activflow.tests.validators import validate_initial_cap
+from activflow.quotient.validators import validate_initial_cap
 
 
 class Sample(AbstractInitialActivity):

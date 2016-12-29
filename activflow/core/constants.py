@@ -18,5 +18,5 @@ TASK_STATUS = (
 # enable 'tests' app only for manual testing purpose
 
 WORKFLOW_APPS = [
-    'tests'
+    'quotient'
 ]

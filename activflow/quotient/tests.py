@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.test import Client
 
 from activflow.core.models import Request
-from activflow.tests.models import Sample, PreTypingResults
+from activflow.quotient.models import Sample, PreTypingResults
 
 
 class CoreTests(TestCase):

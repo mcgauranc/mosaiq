@@ -1,15 +1,28 @@
 {% extends "base.html" %}
 {% block title %} <title>Quotient - Workflows</title> {% endblock %}
 {% block breadcrumb %}
-<ol class="breadcrumb">
-	<li class="active"><a href="#">Home</a></li>
-</ol>
+    <ol class="breadcrumb">
+        <li class="active"><a href="#">Home</a></li>
+    </ol>
 {% endblock %}
 {% block main_content %}
-<h3>Quotient</h3>
-<ul>
-	{% for app in workflows %}
-		<li><a href="{% url 'workflow-detail' app %}">{{app}}</a></li>
-	{% endfor %}
-</ul>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Instruments</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for app in workflows %}
+                <tr>
+                    <td><a href="{% url 'workflow-detail' app %}">{{ app }}</a></td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
 {% endblock %}
