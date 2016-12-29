@@ -9,10 +9,9 @@ def main():
     """Entry Point"""
     print ('Setting Up demo...')
     django.setup()
-    os.system('sudo rm db.sqlite3')
-    os.system('sudo rm -r activflow/core/migrations')
-    os.system('sudo rm -r activflow/tests/migrations')
-    os.system('./manage.py makemigrations core tests')
+    os.system('sudo rm -rf activflow/core/migrations')
+    os.system('sudo rm -rf activflow/quotient/migrations')
+    os.system('./manage.py makemigrations core quotient')
     os.system('./manage.py migrate')
     print ('Create Superuser...')
     os.system('./manage.py createsuperuser --email=demo@activflow.com')
