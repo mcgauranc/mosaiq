@@ -65,7 +65,8 @@ class Task(AbstractEntity):
     """Defines the workflow task"""
     request = ForeignKey(Request, related_name='tasks')
     assignee = ForeignKey(Group)
-    updated_by = ForeignKey(User)
+    created_by = ForeignKey(User, unique=False, null=True, related_name='%(class)s_requests_created')
+    updated_by = ForeignKey(User, related_name='%(class)s_requests_updated')
     activity_ref = CharField(max_length=100)
     status = CharField(
         verbose_name="Status", max_length=30, choices=TASK_STATUS)
@@ -235,6 +236,7 @@ class AbstractInitialActivity(AbstractActivity):
         task = Task.objects.create(
             request=request,
             assignee=role,
+            created_by=user,
             updated_by=user,
             activity_ref=config.INITIAL,
             status='In Progress')
