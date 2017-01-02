@@ -1,34 +1,42 @@
 {% load core_tags %}
 {% csrf_token %}
-{% for field in form %}
-    <div class="form-group">
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-6">
+            {% for field in form %}
+                <div class="form-group">
 
-        {{ field|label_with_class:"control-label" }}
-        {{ field|addcss:"form-control" }}
-    </div>
+                    {{ field|label_with_class:"control-label" }}
+                    {{ field|addcss:"form-control" }}
+                </div>
 
-{% endfor %}
-{% wysiwyg_form_fields as wysuwyg_fields %}
-{% for wysuwyg_field in wysuwyg_fields %}
-    <script type="text/javascript">CKEDITOR.replace('id_{{wysuwyg_field}}')</script>
-{% endfor %}
-<div class="form-group">
-    <div class="pull-right">
-        <input type="submit" value="Save" name="save" class="btn btn-success"/>
-    </div>
-</div>
-{% with is_final_task=object.task.is_final %}
-    {% if next or is_final_task %}
-        <div class="panel panel-default">
-            <div class="panel-heading">Actions</div>
-            <div class="panel-body">
-                {% for option in next %}
-                    <input type="submit" value={{ option}} name="submit" class="btn btn-primary"/>
-                {% endfor %}
-                {% if is_final_task %}
-                    <input type="submit" value="Finish" name="finish" class="btn btn-primary"/>
-                {% endif %}
+            {% endfor %}
+            {% wysiwyg_form_fields as wysuwyg_fields %}
+            {% for wysuwyg_field in wysuwyg_fields %}
+                <script type="text/javascript">CKEDITOR.replace('id_{{wysuwyg_field}}')</script>
+            {% endfor %}
+            <div class="form-group">
+                <div class="pull-right">
+                    <input type="submit" value="Save" name="save" class="btn btn-success"/>
+                </div>
             </div>
         </div>
-    {% endif %}
-{% endwith %}
+        {% with is_final_task=object.task.is_final %}
+            {% if next or is_final_task %}
+                <div class="col-md-3 panel panel-default pull-right">
+                    <div class="form-group">
+                        <div class="panel-heading">Activate next step:</div>
+                        <div class="panel-body">
+                            {% for option in next %}
+                                <input type="submit" value={{ option }} name="submit" class="btn btn-primary"/>
+                            {% endfor %}
+                            {% if is_final_task %}
+                                <input type="submit" value="Finish" name="finish" class="btn btn-primary"/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>

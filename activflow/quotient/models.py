@@ -3,6 +3,7 @@
 import uuid
 
 from django.contrib.auth.models import User
+
 from django.contrib import admin
 from django.db.models import (
     CharField,
@@ -19,8 +20,19 @@ class Sample(AbstractInitialActivity):
     """Sample representation of Foo activity"""
     sample_id = CharField("Sample Id:", max_length=200, validators=[validate_initial_cap])
     internal_sample_id = models.UUIDField(primary_key=False, default=uuid.uuid4)
-    created_by = models.OneToOneField(User)
+    created_by = models.ForeignKey(User, unique=False)
     notes = TextField("Notes", blank=True)
+
+    def queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super(Sample, self).queryset(request)
+        if request.user.is_superuser:
+            # It is mine, all mine. Just return everything.
+            return qs
+        # Now we just add an extra filter on the queryset and
+        # we're done. Assumption: Page.owner is a foreignkey
+        # to a User.
+        return qs.filter(owner=request.user)
 
     def clean(self):
         """Custom validation logic should go here"""
