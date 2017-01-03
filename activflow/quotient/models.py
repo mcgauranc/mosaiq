@@ -62,15 +62,12 @@ class ManualDataSet(AbstractActivity):
     """Sample representation of Corge activity"""
     execution_time = IntegerField("ExecutionTime")
     assay_type = CharField("Assay Type", max_length=50)
-    title = CharField(max_length=50)
-    file = FileField()
     conformant = CharField(verbose_name="Conformant", max_length=30, choices=(
         ('Y', 'Yes'), ('N', 'No')))
 
 
 class FileResult(AbstractActivity):
     """Sample representation of Corge activity"""
-    title = CharField(max_length=50)
     file = FileField()
     conformant = CharField(verbose_name="Conformant", max_length=30, choices=(
         ('Y', 'Yes'), ('N', 'No')))
