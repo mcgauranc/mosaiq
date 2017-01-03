@@ -78,8 +78,7 @@ class FileResult(AbstractActivity):
 
 
 class FinalResult(AbstractActivity):
-    notes = TextField("Notes", blank=True)
-
+    pass
 
 admin.site.register(Sample)
 admin.site.register(StepDiagInformation)
