@@ -2,7 +2,7 @@
 
 from activflow.quotient.models import Sample, FileResult, ManualDataSet
 from activflow.quotient.rules import progress, is_conformant, is_non_conformant
-
+ManualDataSet
 FLOW = {
     'receive_sample': {
         'name': 'Receive Sample',

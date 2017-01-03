@@ -68,7 +68,7 @@ class ManualDataSet(AbstractActivity):
 
 class FileResult(AbstractActivity):
     """Sample representation of Corge activity"""
-    file = FileField()
+    file = FileField(blank=True)
     conformant = CharField(verbose_name="Conformant", max_length=30, choices=(
         ('Y', 'Yes'), ('N', 'No')))
 
