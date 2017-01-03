@@ -10,9 +10,6 @@ ACTIVITY_CONFIG = odict([
         ('creation_date', ['display']),
         ('last_updated', ['display'])
     ])),
-    ('FinalResult', odict([
-        ('notes', ['create', 'display'])
-    ])),
 ])
 
 #  config for Corge commented out to demonstrate that config is optional
@@ -20,8 +17,7 @@ ACTIVITY_CONFIG = odict([
 # field configuration for WYSIWYG editor
 
 WYSIWYG_CONFIG = {
-    'Sample': ['notes'],
-    'FinalResult': ['notes']
+    'Sample': ['notes']
 }
 
 # custom form registration
