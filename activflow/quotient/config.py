@@ -22,8 +22,6 @@ ACTIVITY_CONFIG = odict([
 WYSIWYG_CONFIG = {
     'Sample': ['notes'],
     'FinalResult': ['notes']
-
-
 }
 
 # custom form registration

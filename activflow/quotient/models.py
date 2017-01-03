@@ -78,7 +78,7 @@ class FileResult(AbstractActivity):
 
 
 class FinalResult(AbstractActivity):
-    pass
+    notes = TextField("Notes", blank=True)
 
 
 admin.site.register(Sample)
