@@ -1,6 +1,6 @@
 """ Test Flow Definition"""
 
-from activflow.quotient.models import Sample, ImageAnalysisDiagnostic
+from activflow.quotient.models import Sample, FileResult, ManualDataSet
 from activflow.quotient.rules import progress, is_conformant, is_non_conformant
 
 FLOW = {
@@ -14,7 +14,7 @@ FLOW = {
     },
     'record_pretyping': {
         'name': 'Record Sample Pre-typing',
-        'model': ImageAnalysisDiagnostic,
+        'model': ManualDataSet,
         'role': 'Reviewer',
         'transitions': {
             'import_results': progress,
@@ -22,7 +22,7 @@ FLOW = {
     },
     'import_results': {
         'name': 'Import Results',
-        'model': ImageAnalysisDiagnostic,
+        'model': FileResult,
         'role': 'Submitter',
         'transitions': {
             'final_report': is_conformant,
@@ -31,13 +31,13 @@ FLOW = {
     },
     'final_report': {
         'name': 'Run Final Report',
-        'model': ImageAnalysisDiagnostic,
+        'model': FileResult,
         'role': 'Submitter',
         'transitions': None
     },
     'rerun': {
         'name': 'Import Results (2nd Run)',
-        'model': ImageAnalysisDiagnostic,
+        'model': FileResult,
         'role': 'Submitter',
         'transitions': {
             'import_results': progress,

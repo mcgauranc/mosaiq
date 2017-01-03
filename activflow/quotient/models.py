@@ -8,7 +8,8 @@ from django.contrib import admin
 from django.db.models import (
     CharField,
     IntegerField,
-    TextField)
+    TextField,
+    FileField)
 
 from django.db import models
 
@@ -57,10 +58,20 @@ class DiagnosticData(models.Model):
     results = models.ForeignKey(StepDiagInformation, on_delete=models.CASCADE)
 
 
-class ImageAnalysisDiagnostic(AbstractActivity):
+class ManualDataSet(AbstractActivity):
     """Sample representation of Corge activity"""
     execution_time = IntegerField("ExecutionTime")
     assay_type = CharField("Assay Type", max_length=50)
+    title = CharField(max_length=50)
+    file = FileField()
+    conformant = CharField(verbose_name="Conformant", max_length=30, choices=(
+        ('Y', 'Yes'), ('N', 'No')))
+
+
+class FileResult(AbstractActivity):
+    """Sample representation of Corge activity"""
+    title = CharField(max_length=50)
+    file = FileField()
     conformant = CharField(verbose_name="Conformant", max_length=30, choices=(
         ('Y', 'Yes'), ('N', 'No')))
 
@@ -74,4 +85,4 @@ class ImageAnalysisDiagnostic(AbstractActivity):
 admin.site.register(Sample)
 admin.site.register(StepDiagInformation)
 admin.site.register(DataValue)
-admin.site.register(ImageAnalysisDiagnostic)
+admin.site.register(FileResult)
