@@ -3,14 +3,12 @@
 import uuid
 
 from django.contrib.auth.models import User
-
 from django.contrib import admin
 from django.db.models import (
     CharField,
     IntegerField,
     TextField,
     FileField)
-
 from django.db import models
 
 from activflow.core.models import AbstractActivity, AbstractInitialActivity
@@ -77,6 +75,10 @@ class FileResult(AbstractActivity):
     def clean(self):
         """Custom validation logic should go here"""
         pass
+
+
+class FinalResult(AbstractActivity):
+    pass
 
 
 admin.site.register(Sample)

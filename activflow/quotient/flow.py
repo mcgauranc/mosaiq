@@ -1,6 +1,6 @@
 """ Test Flow Definition"""
 
-from activflow.quotient.models import Sample, FileResult, ManualDataSet
+from activflow.quotient.models import Sample, FileResult, ManualDataSet, FinalResult
 from activflow.quotient.rules import progress, is_conformant, is_non_conformant
 ManualDataSet
 FLOW = {
@@ -31,7 +31,7 @@ FLOW = {
     },
     'final_report': {
         'name': 'Run Final Report',
-        'model': FileResult,
+        'model': FinalResult,
         'role': 'Submitter',
         'transitions': None
     },
